@@ -104,9 +104,9 @@ namespace Steganography
 
             Color[] color = new Color[msg.Length / 3 + num];
 
-            for (int i = 0; i < color.Length; i++)
+            for (int i = 0; i < msg.Length; i++)
             {
-                color[i].R = ;
+                //try to figure out whether or not to loop through msg or color.
             }
 
             return color;
