@@ -80,12 +80,12 @@ namespace Steganography
 
         struct Color
         {
-            public byte A;
-            public byte R;
-            public byte G;
-            public byte B;
+            public int A;
+            public int R;
+            public int G;
+            public int B;
             
-            public Color(byte alpha, byte red, byte green, byte blue)
+            public Color(int alpha, int red, int green, int blue)
             {
                 A = alpha;
                 R = red;
@@ -104,9 +104,11 @@ namespace Steganography
 
             Color[] color = new Color[msg.Length / 3 + num];
 
-            for (int i = 0; i < msg.Length; i++)
+            for (int i = 0; i < msg.Length; i+= 3)
             {
-                //try to figure out whether or not to loop through msg or color.
+                color[i].R = msg[i];
+                color[i].G = msg[i + 1];
+                color[i].B = msg[i + 2];
             }
 
             return color;
