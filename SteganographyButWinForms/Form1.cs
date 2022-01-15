@@ -78,9 +78,11 @@ namespace SteganographyButWinForms
                 }
                 
             }
-            
+            pictureBox1.Image = bitmap;
         }
+
+    }
 
 
     }
-}
+
