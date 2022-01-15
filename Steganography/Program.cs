@@ -5,8 +5,6 @@ namespace Steganography
 {
     class Program
     {
-       
-
         static string DecToBinary(int num)
         {
             int remainder = 0;
@@ -78,7 +76,8 @@ namespace Steganography
             return sum;
         }
 
-        struct Color
+        /*
+        public struct Color
         {
             public int A;
             public int R;
@@ -92,23 +91,28 @@ namespace Steganography
                 G = green;
                 B = blue;
             }
-        }
+        }*/
 
-        static Color[] ConvertToColors(string msg)
+        public static Color[] ConvertToColors(string msg)
         {
-            int num = 0;
-            if (msg.Length % 3 >= 0)
+            while (msg.Length % 3 != 0)
             {
-                num = 1;
+                msg += '\0';
             }
 
-            Color[] color = new Color[msg.Length / 3 + num];
+            Color[] color = new Color[msg.Length / 3];
 
-            for (int i = 0; i < msg.Length; i+= 3)
+            for (int i = 0, count = 0; i < msg.Length && count < color.Length; i += 3, count++)
             {
-                color[i].R = msg[i];
-                color[i].G = msg[i + 1];
-                color[i].B = msg[i + 2];
+                int r = msg[i]; 
+                int g = msg[i + 1];
+                int b = msg[i + 2];
+
+                //color[count].R = msg[i];
+                //color[count].G = msg[i + 1];
+                //color[count].B = msg[i + 2];
+
+                color[count] = Color.FromArgb(r, g, b);
             }
 
             return color;
@@ -131,6 +135,14 @@ namespace Steganography
 
 
 
+            Color[] color = ConvertToColors(msg);
+
+            for (int i = 0; i < color.Length; i++)
+            {
+                Console.WriteLine(color[i].R);
+                Console.WriteLine(color[i].G);
+                Console.WriteLine(color[i].B);
+            }
         }
     }
 }
