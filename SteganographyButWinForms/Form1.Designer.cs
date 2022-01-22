@@ -30,12 +30,14 @@ namespace SteganographyButWinForms
         private void InitializeComponent()
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.imageChooser = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.Usermsg = new System.Windows.Forms.Label();
             this.confirmButton = new System.Windows.Forms.Button();
             this.User = new System.Windows.Forms.Label();
             this.userMessage = new System.Windows.Forms.TextBox();
+            this.DecryptButton = new System.Windows.Forms.Button();
+            this.decryptedMessage = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,15 +49,15 @@ namespace SteganographyButWinForms
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // button1
+            // imageChooser
             // 
-            this.button1.Location = new System.Drawing.Point(275, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(80, 45);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Choose Image";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.imageChooser.Location = new System.Drawing.Point(275, 12);
+            this.imageChooser.Name = "imageChooser";
+            this.imageChooser.Size = new System.Drawing.Size(80, 45);
+            this.imageChooser.TabIndex = 1;
+            this.imageChooser.Text = "Choose Image";
+            this.imageChooser.UseVisualStyleBackColor = true;
+            this.imageChooser.Click += new System.EventHandler(this.imageChooser_Click_1);
             // 
             // openFileDialog1
             // 
@@ -71,11 +73,11 @@ namespace SteganographyButWinForms
             // 
             // confirmButton
             // 
-            this.confirmButton.Location = new System.Drawing.Point(19, 253);
+            this.confirmButton.Location = new System.Drawing.Point(275, 209);
             this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(71, 54);
+            this.confirmButton.Size = new System.Drawing.Size(522, 54);
             this.confirmButton.TabIndex = 3;
-            this.confirmButton.Text = "Confirm Message";
+            this.confirmButton.Text = "Encrypt";
             this.confirmButton.UseVisualStyleBackColor = true;
             this.confirmButton.Click += new System.EventHandler(this.confirmButton_Click);
             // 
@@ -89,22 +91,41 @@ namespace SteganographyButWinForms
             // 
             // userMessage
             // 
-            this.userMessage.Location = new System.Drawing.Point(20, 233);
+            this.userMessage.Location = new System.Drawing.Point(275, 184);
             this.userMessage.Name = "userMessage";
-            this.userMessage.Size = new System.Drawing.Size(69, 20);
+            this.userMessage.Size = new System.Drawing.Size(522, 20);
             this.userMessage.TabIndex = 5;
-
+            // 
+            // DecryptButton
+            // 
+            this.DecryptButton.Location = new System.Drawing.Point(275, 98);
+            this.DecryptButton.Name = "DecryptButton";
+            this.DecryptButton.Size = new System.Drawing.Size(522, 48);
+            this.DecryptButton.TabIndex = 6;
+            this.DecryptButton.Text = "Decrypt";
+            this.DecryptButton.UseVisualStyleBackColor = true;
+            this.DecryptButton.Click += new System.EventHandler(this.DecryptButton_Click);
+            // 
+            // decryptedMessage
+            // 
+            this.decryptedMessage.Location = new System.Drawing.Point(275, 72);
+            this.decryptedMessage.Name = "decryptedMessage";
+            this.decryptedMessage.ReadOnly = true;
+            this.decryptedMessage.Size = new System.Drawing.Size(522, 20);
+            this.decryptedMessage.TabIndex = 7;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.decryptedMessage);
+            this.Controls.Add(this.DecryptButton);
             this.Controls.Add(this.userMessage);
             this.Controls.Add(this.User);
             this.Controls.Add(this.confirmButton);
             this.Controls.Add(this.Usermsg);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.imageChooser);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -118,12 +139,14 @@ namespace SteganographyButWinForms
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button imageChooser;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Label Usermsg;
         private System.Windows.Forms.Button confirmButton;
         private System.Windows.Forms.Label User;
         private System.Windows.Forms.TextBox userMessage;
+        private System.Windows.Forms.Button DecryptButton;
+        private System.Windows.Forms.TextBox decryptedMessage;
     }
 }
 
