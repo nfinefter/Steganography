@@ -21,8 +21,8 @@ namespace Steganography
                  finalRemainderString += remainderString[i];
             }
             return finalRemainderString;
-
         }
+
         static string HexaDecToBinary(int num)
         {
             int remainder = 0;

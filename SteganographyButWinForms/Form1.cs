@@ -92,12 +92,31 @@ namespace SteganographyButWinForms
             b = (byte)(b & 0b1111_1000);
             b = (byte)(b | low3);
 
-            return Color.FromArgb(r, g, b);
+            return Color.FromArgb(color.A, r, g, b);
+        }
+
+        private static char UnpackChar(Color color)
+        {
+            byte r = color.R;
+            byte g = color.G;
+            byte b = color.B;
+
+            r = (byte)(r & 0b0000_0111);
+            r = (byte)(r << 5);
+
+            g = (byte)(g & 0b0000_0011);
+            g = (byte)(g << 3);
+
+            b = (byte)(b & 0b000_0111);
+
+            char c = (char)(r | g | b);
+            return c;
         }
 
         public static Bitmap EncryptSneakier(Bitmap bitmap, string message)
         {
             //Color pixel = Color.FromArgb(0xfa0d67);
+            message += '\0';
 
             for (int i = 0; i < message.Length; i++)
             {
@@ -110,16 +129,39 @@ namespace SteganographyButWinForms
             return bitmap;
         }
 
+        public static string DecryptSneakier(Bitmap bitmap)
+        {
+            string decryptedMsg = "";
+
+            for (int y = 0; y < bitmap.Height; y++)
+            {
+                for (int x = 0; x < bitmap.Width; x++)
+                {
+                    char decrypted = UnpackChar(bitmap.GetPixel(x, y));
+                    if (decrypted == '\0')
+                    {
+                        return decryptedMsg;
+                    }
+                    else
+                    {
+                        decryptedMsg += decrypted;
+                    }
+                }
+            }
+
+            return decryptedMsg;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             User.Enabled = true;
 
-            EncryptSneakier(null, "");
-
             var result = openFileDialog1.ShowDialog();
+
             if (result == DialogResult.OK)
             {
                 original = new Bitmap(openFileDialog1.FileName);
+                bitmap = (Bitmap)original.Clone();
                 pictureBox1.Image = original;
             }
 
@@ -132,35 +174,51 @@ namespace SteganographyButWinForms
         {
             pictureBox1.Image = null;
             string msg = userMessage.Text;
-            Color[] color = ConvertToColors(msg);
+            //Color[] color = ConvertToColors(msg);
             bitmap = (Bitmap)original.Clone();
 
-            for (int i = 0, y = 0; i < color.Length; i++, y++)
-            {
-                for (int x = 0; x < bitmap.Width; x++)
-                {
-                    bitmap.SetPixel(x, y, color[i]);
-                }
-            }
+            //for (int i = 0, y = 0; i < color.Length; i++, y++)
+            //{
+            //    for (int x = 0; x < bitmap.Width; x++)
+            //    {
+            //        bitmap.SetPixel(x, y, color[i]);
+            //    }
+            //}
+            bitmap = EncryptSneakier(bitmap, msg);
+
             pictureBox1.Image = bitmap;
         }
 
-
-
         private void DecryptButton_Click(object sender, EventArgs e)
         {
-            string decryptedMsg = DecryptNicholas(bitmap);
-
+            //string decryptedMsg = DecryptNicholas(bitmap);
+            string decryptedMsg = DecryptSneakier(bitmap);
             decryptedMessage.Text = decryptedMsg;
         }
 
         private void imageChooser_Click_1(object sender, EventArgs e)
         {
+            // original = null;
+            //bitmap = null;
             var result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
                 original = new Bitmap(openFileDialog1.FileName);
+                bitmap = (Bitmap)original.Clone();
                 pictureBox1.Image = original;
+            }
+        }
+
+        private void fileSaver_Click(object sender, EventArgs e)
+        {
+            var result = saveFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                if (System.IO.File.Exists(saveFileDialog1.FileName))
+                {
+                    System.IO.File.Delete(saveFileDialog1.FileName);
+                }
+               ((Bitmap)bitmap.Clone()).Save(saveFileDialog1.FileName);
             }
         }
     }

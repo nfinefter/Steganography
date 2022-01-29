@@ -38,6 +38,8 @@ namespace SteganographyButWinForms
             this.userMessage = new System.Windows.Forms.TextBox();
             this.DecryptButton = new System.Windows.Forms.Button();
             this.decryptedMessage = new System.Windows.Forms.TextBox();
+            this.fileSaver = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -114,11 +116,22 @@ namespace SteganographyButWinForms
             this.decryptedMessage.Size = new System.Drawing.Size(522, 20);
             this.decryptedMessage.TabIndex = 7;
             // 
+            // fileSaver
+            // 
+            this.fileSaver.Location = new System.Drawing.Point(13, 331);
+            this.fileSaver.Name = "fileSaver";
+            this.fileSaver.Size = new System.Drawing.Size(90, 78);
+            this.fileSaver.TabIndex = 8;
+            this.fileSaver.Text = "Save File";
+            this.fileSaver.UseVisualStyleBackColor = true;
+            this.fileSaver.Click += new System.EventHandler(this.fileSaver_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.fileSaver);
             this.Controls.Add(this.decryptedMessage);
             this.Controls.Add(this.DecryptButton);
             this.Controls.Add(this.userMessage);
@@ -147,6 +160,8 @@ namespace SteganographyButWinForms
         private System.Windows.Forms.TextBox userMessage;
         private System.Windows.Forms.Button DecryptButton;
         private System.Windows.Forms.TextBox decryptedMessage;
+        private System.Windows.Forms.Button fileSaver;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 
